@@ -14,7 +14,7 @@ class PurchaseOrder(models.Model):
     order_date = models.DateTimeField(auto_now=True, auto_now_add=False)
     delivery_date = models.DateTimeField(null=True,auto_now=False,auto_now_add=False)
     items = models.JSONField()
-    quantity = models.IntegerField(max_length=50)
+    quantity = models.IntegerField()
     status = models.CharField(choices=StatusChoices,max_length=30)
     quality_rating = models.FloatField(default=7.0)
     issue_date = models.DateTimeField(null=True,auto_now=False, auto_now_add=False)
@@ -26,3 +26,8 @@ class PurchaseOrder(models.Model):
 
     def get_absolute_url(self):
         return reverse("_detail", kwargs={"pk": self.pk})
+    
+class Performance(models.Model):
+    vendor = models.ForeignKey("vendor.Vendor", on_delete=models.CASCADE)
+    date = models.DateTimeField(auto_now=True)
+    
